@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title>Reaction tester</title>
+		<style type="text/css">
+			#circles{
+				background-color:red;
+				width:70px;
+				height:70px;
+				
+				position:relative;
+				display:none;
+			}
+			#red{
+				background-color:red;
+			}
+			#yellow{
+				background-color:yellow;
+			}
+			#blue{
+				background-color:blue;
+			}
+		
+		
+		</style>
+
+	</head>
+	
+	<body>
+		<h1>Test your reactions!</h1>
+		<h3>Click on the boxes and circles as quickly as you can</h3>
+		<button id="end">END</button>
+		<p>Your time:<span id="timetaken"></span></p>
+		<div id="circles" ></div>
+		
+		<script type="text/Javascript">
+			var start=new Date().getTime();
+			var reaction_time=[];
+			var f=0;
+			function getRandomColor() {
+			var letters = '0123456789ABCDEF';	
+			var color = '#';
+			for (var i = 0; i < 6; i++) {
+				color += letters[Math.floor(Math.random() * 16)];
+			}
+			return color;
+		}
+			
+			function appear()
+			{
+			//document.getElementById("circles").style.left = "100px";
+						var x=Math.random()*400;
+				var y=Math.random()*400;
+				var w=(Math.random()*200)+30;
+				if(Math.random()>0.5)
+				{
+					document.getElementById("circles").style.borderRadius="50%";
+					}
+				else{
+					document.getElementById("circles").style.borderRadius="0px";
+				}
+				document.getElementById("circles").style.width=w+"px";
+				document.getElementById("circles").style.height=w+"px";
+				
+				document.getElementById("circles").style.left=x+"px";
+					document.getElementById("circles").style.top=y+"px";
+				document.getElementById("circles").style.backgroundColor=getRandomColor();
+				document.getElementById("circles").style.display="block";
+				start=new Date().getTime();
+			}
+			function appeardelay()
+			{
+			setTimeout(appear,Math.random()*2000);
+
+			}
+			
+			appeardelay();
+			document.getElementById("circles").onclick=function()
+			{
+			//	setTimeout(make-shape-appear,12);
+			document.getElementById("circles").style.display="none";
+				var d = new Date().getTime();
+				time=(d-start)/1000;
+				document.getElementById("timetaken").innerHTML=time+"s";
+				document.getElementById("end").onclick=function()
+			{
+				f=1;
+				alert("Your fastest reaction time is "+Math.min.apply(null,reaction_time));
+			}
+				if(f==1)
+				{
+					return;
+					document.getElementById("circles").style.display="none";
+				}
+				else{
+				reaction_time.push(time);
+				appeardelay();}
+			}
+			
+			
+		</script>
+	
+	</body>
+</html>
